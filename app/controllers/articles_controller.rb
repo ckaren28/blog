@@ -1,6 +1,9 @@
 class ArticlesController < ApplicationController
 include ArticlesHelper
 
+before_filter :require_login, only: [:destroy, :update, :create, :new, :edit]
+
+
   def index
     @articles = Article.all
   end
@@ -36,7 +39,7 @@ include ArticlesHelper
 
     flash.notice = "Article '#{@article.title}' Deleted!"
 
-    redirect_to article_path(@article)
+    redirect_to articles_path
   end
 
   def update
